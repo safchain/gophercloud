@@ -45,6 +45,7 @@ type ListOpts struct {
 	Marker       string `q:"marker"`
 	SortKey      string `q:"sort_key"`
 	SortDir      string `q:"sort_dir"`
+	Host         string `q:"binding:host_id"`
 }
 
 // ToPortListQuery formats a ListOpts into a query string.
@@ -105,6 +106,7 @@ type CreateOpts struct {
 	TenantID            string
 	SecurityGroups      []string
 	AllowedAddressPairs []AddressPair
+	Host                string
 }
 
 // ToPortCreateMap casts a CreateOpts struct to a map.
@@ -143,6 +145,9 @@ func (opts CreateOpts) ToPortCreateMap() (map[string]interface{}, error) {
 	if opts.AllowedAddressPairs != nil {
 		p["allowed_address_pairs"] = opts.AllowedAddressPairs
 	}
+	if opts.Host != "" {
+		p["binding:host_id"] = opts.Host
+	}
 
 	return map[string]interface{}{"port": p}, nil
 }
@@ -179,6 +184,7 @@ type UpdateOpts struct {
 	DeviceOwner         string
 	SecurityGroups      []string
 	AllowedAddressPairs []AddressPair
+	Host                string
 }
 
 // ToPortUpdateMap casts an UpdateOpts struct to a map.
@@ -205,6 +211,9 @@ func (opts UpdateOpts) ToPortUpdateMap() (map[string]interface{}, error) {
 	}
 	if opts.AllowedAddressPairs != nil {
 		p["allowed_address_pairs"] = opts.AllowedAddressPairs
+	}
+	if opts.Host != "" {
+		p["binding:host_id"] = opts.Host
 	}
 
 	return map[string]interface{}{"port": p}, nil

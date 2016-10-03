@@ -84,6 +84,8 @@ type Port struct {
 	DeviceID string `mapstructure:"device_id" json:"device_id"`
 	// Identifies the list of IP addresses the port will recognize/accept
 	AllowedAddressPairs []AddressPair `mapstructure:"allowed_address_pairs" json:"allowed_address_pairs"`
+	// ID of the host to bind the port on
+	Host string `mapstructure:"binding:host_id" json:"binding:host_id"`
 }
 
 // PortPage is the page returned by a pager when traversing over a collection
